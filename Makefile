@@ -6,7 +6,7 @@
 #    By: tbousque <tbousque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 12:44:46 by tbousque          #+#    #+#              #
-#    Updated: 2024/11/15 06:12:15 by tbousque         ###   ########.fr        #
+#    Updated: 2024/11/15 07:39:20 by tbousque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,10 @@ all:			$(NAME)
 
 $(ASM): ft_strlen.s
 	$(ASM) -felf64 -gdwarf ft_strlen.s -o ft_strlen.o
+	$(ASM) -felf64 -gdwarf ft_strcpy.s -o ft_strcpy.o
 
 $(CC): main.c
-	$(CC) $(CFLAGS) main.c ft_strlen.o -o a.out
+	$(CC) $(CFLAGS) main.c ft_strlen.o ft_strcpy.o -o a.out
 
 $(NAME): $(ASM) $(CC)
 		
