@@ -6,13 +6,13 @@
 #    By: tbousque <tbousque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 12:44:46 by tbousque          #+#    #+#              #
-#    Updated: 2024/11/15 07:39:20 by tbousque         ###   ########.fr        #
+#    Updated: 2025/01/02 11:47:47 by tbousque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				= gcc
 ASM				= nasm
-CFLAGS			= -Wall -Wextra -Werror -g3
+CFLAGS			= -Wall -Wextra -Werror -g3 -no-pie
 
 NAME			= program
 
@@ -21,9 +21,12 @@ all:			$(NAME)
 $(ASM): ft_strlen.s
 	$(ASM) -felf64 -gdwarf ft_strlen.s -o ft_strlen.o
 	$(ASM) -felf64 -gdwarf ft_strcpy.s -o ft_strcpy.o
+	$(ASM) -felf64 -gdwarf ft_strcmp.s -o ft_strcmp.o
+	$(ASM) -felf64 -gdwarf ft_read.s -o ft_read.o
+	$(ASM) -felf64 -gdwarf ft_write.s -o ft_write.o
 
 $(CC): main.c
-	$(CC) $(CFLAGS) main.c ft_strlen.o ft_strcpy.o -o a.out
+	$(CC) $(CFLAGS) main.c ft_strlen.o ft_strcpy.o ft_strcmp.o ft_read.o ft_write.o -o a.out
 
 $(NAME): $(ASM) $(CC)
 		
