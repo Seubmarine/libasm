@@ -18,5 +18,5 @@ ft_strcmp:                  ; rdi = s1 ; rsi = s2
     end:
     movzx rax, byte [rdi]   ; put *s1 into destination register for subsraction
     movzx rsi, byte [rsi]   ; s2 becom *s2
-    sub al, sil             ; s1 - s2
+    sub rax, rsi             ; s1 - s2
     ret
