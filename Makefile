@@ -6,38 +6,45 @@
 #    By: tbousque <tbousque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 12:44:46 by tbousque          #+#    #+#              #
-#    Updated: 2025/01/16 13:54:59 by tbousque         ###   ########.fr        #
+#    Updated: 2025/01/16 19:21:50 by tbousque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
+
 ASM				= nasm
-CFLAGS			= -Wall -Wextra -Werror -g3
+ASMFLAGS		= -felf64 -gdwarf
+NAME			= libasm.so
 
-NAME			= program
+SRCS = ft_strlen.s \
+ft_strcpy.s \
+ft_strcmp.s \
+ft_read.s \
+ft_write.s \
+ft_strdup.s \
 
-all:			$(NAME)
 
-$(ASM): ft_strlen.s
-	$(ASM) -felf64 -gdwarf ft_strlen.s -o ft_strlen.o
-	$(ASM) -felf64 -gdwarf ft_strcpy.s -o ft_strcpy.o
-	$(ASM) -felf64 -gdwarf ft_strcmp.s -o ft_strcmp.o
-	$(ASM) -felf64 -gdwarf ft_read.s -o ft_read.o
-	$(ASM) -felf64 -gdwarf ft_write.s -o ft_write.o 
-	$(ASM) -felf64 -gdwarf ft_strdup.s -o ft_strdup.o
+%.o : %.s
+	$(ASM) $(ASMFLAGS) $< -o $@
 
-$(CC): main.c
-	$(CC) $(CFLAGS) main.c ft_strlen.o ft_strcpy.o ft_strcmp.o ft_read.o ft_write.o ft_strdup.o -o a.out
+OBJS = $(SRCS:.s=.o)
 
-$(NAME): $(ASM) $(CC)
-		
+all: $(NAME) 
 
-clean:
-	rm -rf ft_strlen.o main.o
+$(NAME) : $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
-fclean:			clean
-	rm -rf a.out
+test :
+	$(CC) $(CFLAGS) main.c $(NAME_LIB)
+	
+clean :
+	rm -f $(OBJS)
 
-re:	fclean $(NAME)
+fclean : clean
+	rm -f $(NAME_LIB)
+	rm -f ./a.out
 
-.PHONY:			all clean fclean re bonus
+re: fclean all
+
+.PHONY: all clean fclean re test
