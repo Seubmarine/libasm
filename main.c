@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+// #define printf(x, ...) ;
 size_t ft_strlen(char *str);
 
 int test_strlen(int argc, char **argv)
@@ -63,6 +64,10 @@ int test_read()
 char *ft_strdup(const char *s);
 int test_strdup(const char *s) {
     char *new_str = ft_strdup(s);
+    if (new_str == NULL) {
+        printf("strdup malloc error\n");
+        return -1;
+    }
     
     printf("string: %s %p\n", new_str, new_str);
     printf("string: %s %p\n", s, s);
@@ -89,10 +94,10 @@ int main(int argc, char **argv)
 
     };
     ;
-    test_strcmp(" def", " abc");
+    test_strcmp("COul ", "42");
     test_write("Hello world\n");
     test_write("42\n");
-    test_strdup("Pokemon");
+    test_strdup("A");
     // test_read();
     return 0;
 }
