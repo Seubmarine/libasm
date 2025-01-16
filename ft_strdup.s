@@ -3,6 +3,7 @@ BITS 64
 
 SECTION .text
 GLOBAL ft_strdup
+extern malloc
 
 
 ; char *strdup(const char *s);
@@ -18,15 +19,14 @@ ft_strdup:
     mov rdi, rax    ; place strlen result in first argument(rdi) for malloc
     push rax        ; used to set counter
     mov rax, 0
-    extern malloc
-    call malloc
-    cmp rax, 0
+    call malloc wrt ..plt
+    cmp rax, 0      ; verify if malloc returned NULL(0)
     je .end
     
     ; move from rsi to rdi
     mov rdi, rax    ; Load destination pointer into RDI (string destination)
     pop rcx
-    pop rsi         ; load s on stack into source string
+    pop rsi         ; Load s on stack into source string
     cld             ; Clear direction flag (increment mode)
     rep movsb       ; Copy ECX bytes from [RSI] to [RDI]
 .end:
