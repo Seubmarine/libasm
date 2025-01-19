@@ -6,7 +6,7 @@
 #    By: tbousque <tbousque@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/22 12:44:46 by tbousque          #+#    #+#              #
-#    Updated: 2025/01/16 19:21:50 by tbousque         ###   ########.fr        #
+#    Updated: 2025/01/16 19:44:12 by tbousque         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ $(NAME) : $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 test :
-	$(CC) $(CFLAGS) main.c $(NAME_LIB)
-	
+	$(CC) $(CFLAGS) main.c $(NAME) -o test.o
+	test.o
 clean :
 	rm -f $(OBJS)
 

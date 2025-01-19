@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-// #include <errno.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -98,6 +98,18 @@ int main(int argc, char **argv)
     test_write("Hello world\n");
     test_write("42\n");
     test_strdup("A");
+    errno = 0;
+    void *tmp = NULL;
+    int b = write(0, tmp, 1);
+    int b_error = errno;
+    errno = 0;
+    int a = ft_write(0, tmp, 1);
+    int a_error = errno;
+    printf("a: %i a_err: %i\nb: %i b_err: %i\n", a, a_error, b , b_error);
+    if (a_error == EINVAL)
+        printf("errno == EINVAL\n");
+    else
+        printf("errno != EINVAL\n");
     // test_read();
     return 0;
 }
