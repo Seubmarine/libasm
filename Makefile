@@ -37,7 +37,7 @@ $(NAME) : $(OBJS)
 
 test :
 	$(CC) $(CFLAGS) main.c $(NAME) -o test.o
-	test.o
+	./test.o
 clean :
 	rm -f $(OBJS)
 
