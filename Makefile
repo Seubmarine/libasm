@@ -35,15 +35,15 @@ all: $(NAME)
 $(NAME) : $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-test :
+test : $(NAME)
 	$(CC) $(CFLAGS) main.c $(NAME) -o test.o
 	./test.o
 clean :
 	rm -f $(OBJS)
 
 fclean : clean
-	rm -f $(NAME_LIB)
-	rm -f ./a.out
+	rm -f $(NAME)
+	rm -f ./test.o
 
 re: fclean all
 
